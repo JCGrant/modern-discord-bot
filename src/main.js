@@ -1,11 +1,6 @@
 import { Client, Intents } from "discord.js";
-import dotenv from "dotenv";
 import { loadCommands, loadEventHandlers } from "./utils.js";
-import { NODE_ENV, DISCORD_TOKEN } from "./config.js";
-
-if (NODE_ENV !== "production") {
-  dotenv.config();
-}
+import { DISCORD_TOKEN } from "./config.js";
 
 const client = new Client({
   intents: [
