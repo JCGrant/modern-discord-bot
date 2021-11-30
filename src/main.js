@@ -1,6 +1,7 @@
 import { Client, Intents } from "discord.js";
 import { loadCommands, loadEventHandlers } from "./utils.js";
 import { DISCORD_TOKEN } from "./config.js";
+import logger from "./logger.js";
 
 const client = new Client({
   intents: [
@@ -29,7 +30,7 @@ const client = new Client({
     try {
       await command.execute(interaction);
     } catch (error) {
-      console.error(error);
+      logger.error(error);
       await interaction.reply({
         content: "There was an error while executing this command!",
         ephemeral: true,

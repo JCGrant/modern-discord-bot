@@ -6,6 +6,7 @@ import {
   DISCORD_CLIENT_ID,
   DISCORD_GUILD_ID,
 } from "./config.js";
+import logger from "./logger.js";
 
 const rest = new REST({ version: "9" }).setToken(DISCORD_TOKEN);
 
@@ -16,6 +17,6 @@ const rest = new REST({ version: "9" }).setToken(DISCORD_TOKEN);
     .put(Routes.applicationGuildCommands(DISCORD_CLIENT_ID, DISCORD_GUILD_ID), {
       body: commandsJson,
     })
-    .then(() => console.log("Successfully registered application commands."))
-    .catch(console.error);
+    .then(() => logger.info("Successfully registered application commands."))
+    .catch(logger.error);
 })();

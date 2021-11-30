@@ -10,6 +10,7 @@ export default {
     ) {
       return;
     }
+    logger.info(`Removing from shopping: ${message.content}`);
     await message.delete();
   },
 };
