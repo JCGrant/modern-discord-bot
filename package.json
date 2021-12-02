@@ -5,8 +5,9 @@
   "main": "src/main.js",
   "type": "module",
   "scripts": {
-    "start": "node -r dotenv/config .",
-    "dev": "nodemon -r dotenv/config . | pino-pretty -i pid,hostname -t \"yyyy-mm-dd HH:MM:ss\"",
+    "start": "node .",
+    "dev": "nodemon . | pino-pretty -i pid,hostname -t \"yyyy-mm-dd HH:MM:ss\"",
+    "deploy-commands": "node ./src/deploy-commands.js | pino-pretty -i pid,hostname -t \"yyyy-mm-dd HH:MM:ss\"",
     "deploy": "bash ./scripts/deploy.sh",
     "prod": "pm2 start \"npm start\" --watch --name jerry",
     "log-prod": "bash ./scripts/log-prod.sh"

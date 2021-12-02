@@ -6,7 +6,7 @@ source .env set
 set +o allexport
 
 echo "Deploying commands"
-node -r dotenv/config src/deploy-commands.js
+node ./src/deploy-commands.js
 
 endpoint="$DEPLOY_URL:$DEPLOY_DIRECTORY"
 echo "Deploying to $endpoint"
