@@ -12,6 +12,10 @@ export const DISCORD_GUILD_ID = loadEnvVar("DISCORD_GUILD_ID");
 export const DISCORD_SHOPPING_CHANNEL_ID = loadEnvVar(
   "DISCORD_SHOPPING_CHANNEL_ID",
 );
+export const DISCORD_INTER_SERVER_CHANNELS = [
+  loadEnvVar("DISCORD_INTER_SERVER_CHANNEL_A"),
+  loadEnvVar("DISCORD_INTER_SERVER_CHANNEL_B"),
+];
 
 function loadEnvVar(key, defaultValue) {
   const value = process.env[key];
