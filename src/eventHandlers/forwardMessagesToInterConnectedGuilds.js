@@ -7,7 +7,9 @@ const [CHAN_A, CHAN_B] = DISCORD_INTER_SERVER_CHANNELS;
 
 export default {
   eventType: "messageCreate",
-  async on({ channelId, author, content, client }) {
+  async on(message) {
+    const { channelId, channel, author, content, client, attachments, embeds } =
+      message;
     let receivingChannelId;
     if (channelId === CHAN_A) {
       receivingChannelId = CHAN_B;
@@ -19,9 +21,6 @@ export default {
     if (author.bot) {
       return;
     }
-    logger.info(
-      `Forwarding message '${content}' from author '${author.username}' to channel: ${receivingChannelId}'`,
-    );
 
     try {
       await author.fetch();
@@ -30,7 +29,13 @@ export default {
       return;
     }
 
-    await client.channels.cache.get(receivingChannelId).send({
+    const receivingChannel = client.channels.cache.get(receivingChannelId);
+    const urls = [...embeds, ...attachments.values()].map((e) => e.url);
+
+    logger.info(
+      `Forwarding message "${content}" from @${author.username}. #${channel.name} (${channelId}) -> #${receivingChannel.name} (${receivingChannelId})`,
+    );
+    await receivingChannel.send({
       embeds: [
         new MessageEmbed()
           .setColor(author.hexAccentColor)
@@ -38,5 +43,8 @@ export default {
           .setDescription(content),
       ],
     });
+    if (urls.length > 0) {
+      await receivingChannel.send(urls.join(" "));
+    }
   },
 };
