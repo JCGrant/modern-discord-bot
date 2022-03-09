@@ -1,5 +1,6 @@
-import { DISCORD_SHOPPING_CHANNEL_ID } from "../config.js";
+import { DISCORD_TODO_LISTS_CATEGORY_NAME } from "../config.js";
 import logger from "../logger.js";
+import { isInCategory } from "../utils.js";
 
 export default {
   eventType: "messageReactionAdd",
@@ -15,7 +16,7 @@ export default {
     const { message, emoji } = reaction;
     if (
       bot ||
-      message.channelId !== DISCORD_SHOPPING_CHANNEL_ID ||
+      !isInCategory(message.channel, DISCORD_TODO_LISTS_CATEGORY_NAME) ||
       emoji.toString() !== "❌"
     ) {
       return;

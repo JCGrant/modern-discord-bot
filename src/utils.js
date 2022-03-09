@@ -25,3 +25,16 @@ const importBotModules = async (directoryPath) =>
           (await import(`${directoryPath}/${filename}`)).default,
       ),
   );
+
+export const isInCategory = (channel, categoryName) => {
+  if (channel.type === "GUILD_TEXT") {
+    return channel.parent?.name === categoryName;
+  }
+  if (
+    channel.type === "GUILD_PUBLIC_THREAD" ||
+    channel.type === "GUILD_PRIVATE_THREAD"
+  ) {
+    return channel.parent?.parent?.name === categoryName;
+  }
+  throw Error("channel must be GUILD_TEXT or GUILD_THREAD");
+};
